@@ -23,10 +23,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.example.myapplication.domain.model.Patient
 
 @Composable
 fun PatientItem(
     patient: Patient,
+    modifier: Modifier = Modifier,
     onItemClicked:() ->Unit,
     onDeleteConfirm:() -> Unit,
 ) {

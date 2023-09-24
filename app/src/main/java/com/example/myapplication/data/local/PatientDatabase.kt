@@ -2,6 +2,7 @@ package com.example.myapplication.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.example.myapplication.domain.model.Patient
 
 @Database(
     entities = [Patient::class],

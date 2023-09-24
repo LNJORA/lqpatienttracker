@@ -1,24 +1,28 @@
 package com.example.myapplication.data.repository
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Query
-import androidx.room.Upsert
+import com.example.myapplication.data.local.PatientDao
+import com.example.myapplication.data.local.PatientDatabase
+import com.example.myapplication.domain.model.Patient
+import com.example.myapplication.domain.repository.PatientRepository
 import kotlinx.coroutines.flow.Flow
 
-@Dao
-interface PatientDao{
+class PatientRepositoryImpl (
+    private val dao: PatientDao
+): PatientRepository{
 
-    @Upsert
-    suspend fun addOrUpdatePatient(patient: Patient)
+    override suspend fun  addOrUpdatePatient(patient: Patient){
+        dao.addOrUpdatePatient(patient)
+    }
 
-    @Delete
-    suspend fun deletePatient(patient: Patient)
+    override suspend fun deletePatient(patient: Patient) {
+        dao.deletePatient(patient)
+    }
 
-    @Query("SELECT * FROM patient_table WHERE patientId = :patientId")
-    suspend fun getPatientById(patientId: Int): Patient?
+    override suspend fun getPatientsById(patientId: Int): Patient? {
+        return dao.getPatientById(patientId)
+    }
 
-    @Query("SELECT * FROM patient_table")
-    fun getAllPatients(): Flow<List<Patient>>
-
+    override fun getAllPatients():Flow<List<Patient>>{
+        return dao.getAllPatients()
+    }
 }
