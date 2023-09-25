@@ -10,7 +10,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import javax.inject.Inject
 
-@HiltViewModel PatientDetailsViewModel @Inject constructor(
+@HiltViewModel
+class PatientDetailsViewModel @Inject constructor(
     private val repository: PatientRepository,
     private val savedStateHandle: SavedStateHandle,
     ): ViewModel(){
@@ -38,10 +39,14 @@ import javax.inject.Inject
                     state = state.copy(doctorAssigned = event.doctor)
                 }
                 is PatientDetailsEvent.EnteredPrescription ->{
+                    state = state.copy(doctorAssigned = event.prescription)
+                }
+                PatientDetailsEvent.SelectedFemale -> {
                     state = state.copy(gender = 2)
                 }
                 PatientDetailsEvent.SelectedMale -> {
                     state = state.copy(gender = 1)
+
                 }
                 PatientDetailsEvent.SaveButton -> {
                     viewModelScope.launch{
@@ -82,7 +87,7 @@ import javax.inject.Inject
                     gender = state.gender,
                     doctorsAssigned = trimmedDoctorName,
                     prescription = state.prescription,
-                    patieentId = currentPatientId
+                    patientId = currentPatientId
                 )
 
                     )
@@ -94,20 +99,21 @@ import javax.inject.Inject
     private fun fetchPatientDetails(){
         savedStateHandle.get<Int>(key = PATIENT_DETAILS_ARGUMENTS_KEY)?.let { patientId ->
             if (patientId != -1) {
-                viewModelScope.launch{
-                        repository.getPatientById(patientId)?.apply {
-                            state = state.copy(
-                                name = name,
-                                age = age,
-                                gender = gender,
-                                doctorsAssigned = doctorsAssigned
-                                prescription = prescription
-                            )
-                            currentPatientId = patientId
-                        }
-            }
+                viewModelScope.launch {
+                    repository.getPatientById(patientId)?.apply {
+                        state = state.copy(
+                            name = name,
+                            age = age,
+                            gender = gender,
+                            doctorAssigned = doctorAssigned,
+                            prescription = prescription
+                        )
+                        currentPatientId = patientId
+                    }
+                }
             }
         }
+    }
 
 
     sealed class UiEvent {
@@ -115,4 +121,4 @@ import javax.inject.Inject
         object SaveNote : UiEvent()
 
     }    }
-class TextFieldException(message: String)
+class TextFieldException(message: String): Exception(message)

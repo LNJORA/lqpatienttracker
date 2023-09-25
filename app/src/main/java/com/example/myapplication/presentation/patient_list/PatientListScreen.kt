@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.TopAppBar
@@ -21,30 +22,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.myapplication.domain.model.Patient
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PatientListScreen() {
+fun PatientListScreen(
+    onFabClicked: () -> Unit,
+    onItemClick: (Int?) -> Unit,
+    viewModel: PatientListViewModel = hiltViewModel()
+) {
 
-    val patientList = listOf(
-        Patient(
-            name = "Mohammed Arif",
-            age = "25",
-            gender = 1,
-            doctorAssigned = "Dr. Patel",
-            prescription = "Drink at least 8 glasses of water per day"
-        ),
-        Patient(
-            name = "Lucy Natasha",
-            age = "34",
-            gender = 2,
-            doctorAssigned = "Dr. Green",
-            prescription = "Get at least 7 hours of sleep",
-        )
-
-    )
+    val patientList by viewModel.patientList.collectAsState()
     Scaffold(
-        topBar = {},
+        topBar = { ListAppBar()},
         floatingActionButton = {
             ListFab(onFabClicked = {})
 
@@ -58,14 +49,14 @@ fun PatientListScreen() {
             items(patientList) { patient ->
                 PatientItem(
                     patient = patient,
-                    onItemClicked = {},
-                    onDeleteConfirm = {},
+                    onItemClicked = {onItemClick(patient.patientId) },
+                    onDeleteConfirm = {viewModel.deletePatient(patient)},
                 )
 
             }
 
         }
-        if (patientList.isEmpty()) {
+        if (patientList.isEmpty() && !viewModel.isLoading) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -90,7 +81,8 @@ fun PatientListScreen() {
 fun ListAppBar() {
     TopAppBar(
         title = {
-            Text(text = "Patient Tracker",
+            Text(
+                text = "Patient Tracker",
                 style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold)
             )
         }
@@ -102,7 +94,9 @@ fun ListAppBar() {
 fun ListFab(
     onFabClicked: () -> Unit
 ) {
-    FloatingActionButton(onClick = onFabClicked) {
+    FloatingActionButton(
+        onClick = onFabClicked
+    ) {
         Icon(
             imageVector = Icons.Filled.Add,
             contentDescription = "Add Patient Button")

@@ -5,5 +5,5 @@ data class PatientDetailsUiState (
     val age: String = "",
     val gender: Int = 0,
     val doctorAssigned: String = "",
-    val prescription: String
+    val prescription: String = ""
 )

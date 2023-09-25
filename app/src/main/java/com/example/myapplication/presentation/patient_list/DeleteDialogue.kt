@@ -36,6 +36,7 @@ fun DeleteDialogue(
                 Text(text = "No")
                 
             }
-        }
+        },
+        onDismissRequest = onDialogDismiss
     )
 }
