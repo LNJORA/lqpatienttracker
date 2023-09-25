@@ -16,6 +16,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,16 +30,17 @@ import com.example.myapplication.domain.model.Patient
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PatientListScreen(
-    onFabClicked: () -> Unit,
+    onFabClick: () -> Unit,
     onItemClick: (Int?) -> Unit,
     viewModel: PatientListViewModel = hiltViewModel()
 ) {
 
     val patientList by viewModel.patientList.collectAsState()
+
     Scaffold(
         topBar = { ListAppBar()},
         floatingActionButton = {
-            ListFab(onFabClicked = {})
+            ListFab(onFabClick = onFabClick)
 
         }
     ) {
@@ -49,7 +52,7 @@ fun PatientListScreen(
             items(patientList) { patient ->
                 PatientItem(
                     patient = patient,
-                    onItemClicked = {onItemClick(patient.patientId) },
+                    onItemClick = {onItemClick(patient.patientId) },
                     onDeleteConfirm = {viewModel.deletePatient(patient)},
                 )
 
@@ -83,19 +86,18 @@ fun ListAppBar() {
         title = {
             Text(
                 text = "Patient Tracker",
-                style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold)
+                style = androidx.compose.material.MaterialTheme.typography.h5.copy(fontWeight = FontWeight.Bold)
             )
         }
     )
-
 }
 
 @Composable
 fun ListFab(
-    onFabClicked: () -> Unit
+    onFabClick: () -> Unit
 ) {
     FloatingActionButton(
-        onClick = onFabClicked
+        onClick = onFabClick
     ) {
         Icon(
             imageVector = Icons.Filled.Add,

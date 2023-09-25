@@ -9,6 +9,7 @@ import com.example.myapplication.domain.model.Patient
 import com.example.myapplication.domain.repository.PatientRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,8 +18,8 @@ class PatientListViewModel @Inject constructor(
     private val repository: PatientRepository
 ) : ViewModel() {
 
-    private var patientList = MutableStateFlow<List<Patient>>(emptyList())
-    val patientList = patientList.asStateFlow()
+    private var _patientList = MutableStateFlow<List<Patient>>(emptyList())
+    val patientList = _patientList.asStateFlow()
 
     var isLoading by mutableStateOf(false)
 
@@ -26,7 +27,7 @@ class PatientListViewModel @Inject constructor(
         viewModelScope.launch {
             isLoading = true
             repository.getAllPatients().collect{
-                patientList.value = it
+                _patientList.value = it
             }
             isLoading = false
         }

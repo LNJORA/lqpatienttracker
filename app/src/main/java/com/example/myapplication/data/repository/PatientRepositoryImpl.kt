@@ -18,9 +18,10 @@ class PatientRepositoryImpl (
         dao.deletePatient(patient)
     }
 
-    override suspend fun getPatientsById(patientId: Int): Patient? {
+    override suspend fun getPatientById(patientId: Int): Patient? {
         return dao.getPatientById(patientId)
     }
+
 
     override fun getAllPatients():Flow<List<Patient>>{
         return dao.getAllPatients()

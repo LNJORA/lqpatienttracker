@@ -43,6 +43,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collectLatest
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -58,11 +59,17 @@ fun PatientDetailsScreen(
     val context = LocalContext.current
 
     LaunchedEffect(key1 = Unit){
-        viewModel.evenFlow.collectLatest{event ->
+        viewModel.eventFlow.collectLatest{ event ->
             when(event){
-                PatientDetailViewModel.UiEvent.ShowToast ->{
-                    Toast.makeText(context, event.message, Toast.LENGTH_SHORT).show()
+                PatientDetailsViewModel.UiEvent.SaveNote -> {
+                    onSuccessfulSaving()
+                    Toast.makeText(context,"Successfully Saved", Toast.LENGTH_SHORT).show()
                 }
+                is PatientDetailsViewModel.UiEvent.ShowToast -> {
+                        Toast.makeText(context, event.message, Toast.LENGTH_SHORT).show()
+                }
+
+
             }
 
         }
@@ -77,7 +84,7 @@ fun PatientDetailsScreen(
 
     Scaffold(
         topBar = {
-            TopBar(onBackClicked = onBackClick)
+            TopBar(onBackClick = onBackClick)
         }
     ) {
         Column (
@@ -197,7 +204,7 @@ fun TopBar(
             )
         },
         navigationIcon = {
-            IconButton(onClick = {onBackClicked}) {
+            IconButton(onClick = {onBackClick}) {
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
                     contentDescription = "Back"

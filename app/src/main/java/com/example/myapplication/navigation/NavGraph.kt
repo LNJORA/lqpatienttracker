@@ -49,7 +49,7 @@ fun NavGraphSetup(
             })
         ){
             PatientDetailsScreen(
-                onBackClick = {navController.navigate() },
+                onBackClick = {navController.navigateUp() },
                 onSuccessfulSaving = {navController.navigateUp()}
             )
         }

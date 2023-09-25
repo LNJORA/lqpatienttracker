@@ -11,7 +11,7 @@ fun DeleteDialogue(
     title:String,
     message:String,
     onDialogDismiss: () -> Unit,
-    onConfirmButtonClicked: () -> Unit,
+    confirmButtonClicked: () -> Unit,
 ) {
     AlertDialog(
         title={
@@ -20,16 +20,15 @@ fun DeleteDialogue(
               )
         },
         text = {
-               Text(
-                   text = message,
-                   style = MaterialTheme.typography.body1
-               )
-
+            Text(
+                text = message,
+                style = MaterialTheme.typography.body1
+            )
         },
-        onDismissRequest = {onDialogDismiss()},
-        confirmButton = { TextButton(onClick = {onConfirmButtonClicked}) {
-                              Text(text = "Yes")
-        }
+        confirmButton = {
+            TextButton(onClick = { confirmButtonClicked }) {
+                Text(text = "Yes")
+            }
         },
         dismissButton = {
             TextButton(onClick = {onDialogDismiss}) {

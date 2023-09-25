@@ -8,7 +8,7 @@ data class Patient(
     val name: String,
     val age: String,
     val gender: Int,
-    val doctorsAssigned: String,
+    val doctorAssigned: String,
     val prescription: String,
     @PrimaryKey(autoGenerate = true)
     val patientId: Int? = null

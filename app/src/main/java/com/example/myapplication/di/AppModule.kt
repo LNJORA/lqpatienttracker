@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.example.myapplication.data.local.PatientDatabase
 import com.example.myapplication.data.repository.PatientRepositoryImpl
 import com.example.myapplication.domain.repository.PatientRepository
+import com.example.myapplication.util.Constants.PATIENT_DATABASE
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

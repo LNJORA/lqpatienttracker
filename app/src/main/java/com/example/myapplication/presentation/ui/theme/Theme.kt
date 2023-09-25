@@ -15,14 +15,14 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 
 private val DarkColorPalette = darkColors(
-    primary  = com.example.myapplication.ui.theme.RoyalBlue,
-    secondary = com.example.myapplication.ui.theme.Teal200,
+    primary  = RoyalBlue,
+    secondary = Teal200,
     //tertiary = Pink80
 )
 
 private val LightColorPallete = lightColors(
-    primary = com.example.myapplication.ui.theme.RoyalBlue,
-    secondary = com.example.myapplication.ui.theme.Teal200
+    primary = RoyalBlue,
+    secondary = Teal200
 )
 //    tertiary = Pink40
 
@@ -72,7 +72,7 @@ fun PatientTrackerTheme(
 
     MaterialTheme(
         colors=colors,
-        typography= com.example.myapplication.presentation.ui.theme.Typography,
+        typography= Typography,
         shapes= Shapes,
         content = content
     )
