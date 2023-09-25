@@ -8,7 +8,7 @@ plugins {
 
 android {
     namespace = "com.example.myapplication"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.myapplication"
@@ -33,8 +33,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = org.gradle.api.JavaVersion.VERSION_1_8
+        targetCompatibility = org.gradle.api.JavaVersion.VERSION_1_8
     }
     kotlinOptions {
         jvmTarget = "1.8"
@@ -56,6 +56,7 @@ dependencies {
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-view-model-compose:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.activity:activity-compose:1.7.2")
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))
     implementation("androidx.compose.ui:ui")
@@ -68,8 +69,8 @@ dependencies {
     implementation("androidx.compose.material:material-android:1.5.1@aar")
 
     //Hilt
-    implementation("com.google.dagger:hilt-android:2.44.2")
-    implementation("com.google.dagger:hilt-android-compiler:2.41")
+    implementation("com.google.dagger:hilt-android:2.48")
+    implementation("com.google.dagger:hilt-android-compiler:2.48")
 
     //Room
     implementation("androidx.room:room-runtime:2.5.2")
@@ -77,14 +78,14 @@ dependencies {
     kapt("androidx.room:room-compiler:2.5.2")
 
     //Danger - Hilt
-    implementation("com.google.dagger:hilt-android:2.44.2")
-    kapt("com.google.dagger:hilt-android-compiler:2.44")
+    implementation("com.google.dagger:hilt-android:2.48")
+    kapt("com.google.dagger:hilt-android-compiler:2.48")
     kapt("androidx.hilt:hilt-navigation-compose:1.0.0")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
 
     //System UI Color
     implementation("com.google.accompanist:accompanist-insets:0.23.1")
-    implementation("com.google.accompanist:accompanist-systemuicontroller:0.29.1-alpha")
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.33.1-alpha")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

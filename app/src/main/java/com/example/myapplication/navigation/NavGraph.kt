@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.myapplication.presentation.patient_details.PatientDetailsScreen
 import com.example.myapplication.presentation.patient_list.PatientListScreen
+import com.example.myapplication.util.Constants.PATIENT_DETAILS_ARGUMENT_KEY
 
 sealed class Screen(val route: String){
     object PatientList : Screen("patient_list_screen")
@@ -16,7 +17,7 @@ sealed class Screen(val route: String){
                 "{$PATIENT_DETAILS_ARGUMENT_KEY}"
     ){
         fun passPatientId(patientId: Int? = null): String{
-            return "patient_details_screens?$PATIENT_DETAILS_ARGUMENTS_KEY=$patientId"
+            return "patient_details_screens?$PATIENT_DETAILS_ARGUMENT_KEY=$patientId"
         }
     }
 }
@@ -35,7 +36,7 @@ fun NavGraphSetup(
                 onFabClick = {
                     navController.navigate(Screen.PatientDetails.route)
                 },
-                onItemClick{ patientId ->
+                onItemClick = { patientId ->
                     navController.navigate(Screen.PatientDetails.passPatientId(patientId))
 
                 }

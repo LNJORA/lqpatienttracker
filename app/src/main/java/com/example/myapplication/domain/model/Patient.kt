@@ -2,6 +2,7 @@ package com.example.myapplication.domain.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.myapplication.util.Constants.PATIENT_TABLE
 
 @Entity(tableName = PATIENT_TABLE)
 data class Patient(

@@ -84,7 +84,7 @@ fun PatientDetailsScreen(
 
     Scaffold(
         topBar = {
-            TopBar(onBackClick = onBackClick)
+            TopBar(onBackClicked = onBackClick)
         }
     ) {
         Column (
@@ -204,7 +204,7 @@ fun TopBar(
             )
         },
         navigationIcon = {
-            IconButton(onClick = {onBackClick}) {
+            IconButton(onClick = {onBackClicked}) {
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
                     contentDescription = "Back"

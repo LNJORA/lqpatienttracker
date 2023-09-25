@@ -16,10 +16,10 @@ interface PatientDao{
     @Delete
     suspend fun deletePatient(patient: Patient)
 
-    @Query("SELECT * FROM patient_table WHERE patientId = :patientId")
+    @Query("SELECT * FROM patientTable WHERE patientId = :patientId")
      suspend fun getPatientById(patientId: Int): Patient?
 
-     @Query("SELECT * FROM patient_table")
+     @Query("SELECT * FROM patientTable")
      fun getAllPatients(): Flow<List<Patient>>
 
 }

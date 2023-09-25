@@ -8,12 +8,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.domain.model.Patient
 import com.example.myapplication.domain.repository.PatientRepository
-import com.example.myapplication.util.Constants.PATIENT_DETAILS_ARGUMENT_KEY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import com.example.myapplication.util.Constants.PATIENT_DETAILS_ARGUMENT_KEY
 
 @HiltViewModel
 class PatientDetailsViewModel @Inject constructor(
@@ -105,7 +105,7 @@ class PatientDetailsViewModel @Inject constructor(
     }
 
     private fun fetchPatientDetails() {
-        savedStateHandle.get<Int>(key = PATIENT_DETAILS_ARGUMENTS_KEY)?.let { patientId ->
+        savedStateHandle.get<Int>(key = PATIENT_DETAILS_ARGUMENT_KEY)?.let { patientId ->
             if (patientId != -1) {
                 viewModelScope.launch {
                     repository.getPatientById(patientId)?.apply {
